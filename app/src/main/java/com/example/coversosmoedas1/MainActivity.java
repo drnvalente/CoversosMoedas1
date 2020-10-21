@@ -1,14 +1,13 @@
 package com.example.coversosmoedas1;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,15 +29,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.button_calculate) {
+    public void onClick(View view) {
+        if (view.getId() == R.id.button_calculate) {
+
             String value = this.mViewHolder.editValue.getText().toString();
             if ("".equals(value)) {
                 // Mostra mensagem para o usuario
                 Toast.makeText(this, this.getString(R.string.informe_valor), Toast.LENGTH_LONG).show();
             } else {
+                Double real = Double.valueOf(value);
 
-           }
+                this.mViewHolder.textDolar.setText(String.format("%.2f", real / 4));
+                this.mViewHolder.textEuro.setText(String.format("%.2f", real / 5));
+
+            }
         }
     }
 
@@ -47,11 +51,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.mViewHolder.textEuro.setText("");
 
     }
+
     private static class ViewHolder {
-        EditText editValue;
-        TextView textDolar;
-        TextView textEuro;
-        Button buttonCalculate;
+        private EditText editValue;
+        private TextView textDolar;
+        private TextView textEuro;
+        private Button buttonCalculate;
     }
 }
 
